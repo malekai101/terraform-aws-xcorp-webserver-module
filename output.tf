@@ -1,9 +1,14 @@
 output instance_ids {
   description = "IDs of EC2 instances"
-  value       = aws_instance.application.*.id
+  value       = aws_instance.application[*].id
 }
 
-output lb_dns {
-    description = "The dns name of the load balancer"
-    value = aws_lb.application_lb.dns_name
+output "server_ip" {
+  description = "The public IPs of the web servers."
+  value = aws_instance.application[*].public_ip
+}
+
+output "server_dns" {
+  description = "The FQDNs of the web servers."
+  value = aws_instance.application[*].public_dns
 }
